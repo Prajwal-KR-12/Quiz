@@ -16,7 +16,7 @@ connectDB(); // Connect to MongoDB
 const app = express();
 
 // Middleware
-const allowedOrigins = ['http://localhost:3000', 'https://quiz-frontend-llcn.onrender.com', 'https://chipper-ganache-142a5e.netlify.app'];
+const allowedOrigins = ['http://localhost:3000', 'https://quiz-frontend-llcn.onrender.com', 'https://chipper-ganache-142a5e.netlify.app', 'https://my2quiz.netlify.app'];
 
 app.use(cors({
   origin: function (origin, callback) {
