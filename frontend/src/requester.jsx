@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+console.log('API URL:', process.env.REACT_APP_API_URL);
+
 const requester = axios.create({
   baseURL: process.env.REACT_APP_API_URL, // Assuming your backend runs on port 5000 and has an /api prefix
   withCredentials: true, // Important for sending cookies with requests
