@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const requester = axios.create({
-  baseURL: 'http://localhost:5000/api', // Assuming your backend runs on port 5000 and has an /api prefix
+  baseURL: process.env.REACT_APP_API_URL, // Assuming your backend runs on port 5000 and has an /api prefix
   withCredentials: true, // Important for sending cookies with requests
 });
 

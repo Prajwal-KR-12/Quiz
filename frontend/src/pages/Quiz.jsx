@@ -17,7 +17,7 @@ export default function Quiz() {
 
   useEffect(() => {
     if (user && type) {
-      axios.get(`http://localhost:5000/api/quiz/${type}`)
+      axios.get(`${process.env.REACT_APP_API_URL}/quiz/${type}`)
         .then((res) => setQuestions(res.data))
         .catch((err) => console.error(err));
     }
@@ -34,7 +34,7 @@ export default function Quiz() {
     }
     const ansArray = questions.map((q, i) => answers[i]);
     try {
-      const res = await axios.post('http://localhost:5000/api/quiz/submit', {
+      const res = await axios.post(`${process.env.REACT_APP_API_URL}/quiz/submit`, {
         userId: user._id,
         answers: ansArray,
         category: type // Send the quiz category to the backend
