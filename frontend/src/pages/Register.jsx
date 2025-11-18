@@ -8,9 +8,8 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
 
-  const handleSubmit = async (e) => {
-    console.log("Register form submitted!");
-    e.preventDefault();
+  const handleSubmit = async () => {
+    console.log("Register button clicked!");
     try {
       const res = await registerUser({ name, email, password });
       setMessage("✅ Registration successful! Please login.");
@@ -27,7 +26,7 @@ const Register = () => {
     <div className="container mt-5">
       <h2>Register</h2>
       {message && <div className={`alert ${message.startsWith("✅") ? "alert-success" : "alert-danger"}`} role="alert">{message}</div>}
-      <form onSubmit={handleSubmit}>
+      <form>
         <div className="mb-3">
           <label htmlFor="nameInput" className="form-label">Name</label>
           <input
@@ -61,7 +60,7 @@ const Register = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button type="submit" className="btn btn-success w-100">Register</button>
+        <button type="button" className="btn btn-success w-100" onClick={handleSubmit}>Register</button>
         <p className="mt-3 text-center">Already have an account? <a href="/">Login here</a></p>
       </form>
     </div>
