@@ -5,6 +5,8 @@ import { useParams, Link } from "react-router-dom";
 export default function Quiz() {
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState({});
+  const [score, setScore] = useState(0);
+  const [submitted, setSubmitted] = useState(false);
   const { type } = useParams(); // Get the quiz type from the URL
 
   useEffect(() => {
@@ -14,6 +16,15 @@ export default function Quiz() {
         .catch((err) => console.error(err));
     }
   }, [type]);
+
+  const handleSubmit = () => {
+    axios.post(`${process.env.REACT_APP_API_URL}/quiz/submit`, { answers, category: type })
+      .then((res) => {
+        setScore(res.data.score);
+        setSubmitted(true);
+      })
+      .catch((err) => console.error(err));
+  };
 
   return (
     <div className="container mt-5">
@@ -33,6 +44,7 @@ export default function Quiz() {
                     id={`q${index}-opt${i}`}
                     value={opt}
                     onChange={() => setAnswers({ ...answers, [index]: opt })}
+                    disabled={submitted}
                   />
                   <label className="form-check-label" htmlFor={`q${index}-opt${i}`}>
                     {opt}
@@ -43,8 +55,16 @@ export default function Quiz() {
           </div>
         </div>
       ))}
+      {submitted && (
+        <div className="alert alert-success mt-4" role="alert">
+          You have submitted the quiz! Your score is {score} out of {questions.length}.
+        </div>
+      )}
       <div className="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
-        <Link to="/" className="btn btn-primary">Back to Quiz Selection</Link>
+        {!submitted && (
+          <button className="btn btn-primary" onClick={handleSubmit}>Submit</button>
+        )}
+        <Link to="/" className="btn btn-secondary">Back to Quiz Selection</Link>
       </div>
     </div>
   );

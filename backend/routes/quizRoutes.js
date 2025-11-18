@@ -17,7 +17,7 @@ router.get("/:category", async (req, res) => {
 
 // POST route to submit answers and calculate score
 router.post("/submit", async (req, res) => {
-  const { userId, answers, category } = req.body;
+  const { answers, category } = req.body;
   try {
     const questions = await Quiz.find({ category }); // Fetch questions for the specific category
 
@@ -26,9 +26,7 @@ router.post("/submit", async (req, res) => {
       if (answers[i] === q.correctAnswer) score++;
     });
 
-    // Update user's score in database
-    await User.findByIdAndUpdate(userId, { score });
-    res.json({ msg: "Score updated", score });
+    res.json({ score });
   } catch (err) {
     res.status(500).json({ msg: err.message });
   }
