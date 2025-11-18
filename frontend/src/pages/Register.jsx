@@ -9,6 +9,7 @@ const Register = () => {
   const [message, setMessage] = useState("");
 
   const handleSubmit = async (e) => {
+    console.log("Register form submitted!");
     e.preventDefault();
     try {
       const res = await registerUser({ name, email, password });
